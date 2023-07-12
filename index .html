@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GPA and CGPA Calculator</title>
+   <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f2f2f2;
+    }
+  
+    h1 {
+      text-align: center;
+      color: #333333;
+    }
+  
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+  
+    .form-container {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      margin-right: 20px;
+    }
+  
+    label {
+      width: 150px;
+      text-align: right;
+      margin-right: 10px;
+      color: #333333;
+    }
+  
+    input[type="text"] {
+      width: 150px;
+      padding: 5px;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+    }
+  
+    button {
+      padding: 10px 20px;
+      margin-top: 20px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+  
+    button:hover {
+      background-color: #45a049;
+    }
+  
+    #output {
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+      color: #333333;
+    }
+  </style>
+  <script type="text/javascript">
+    function calculateGPA() {
+      var coor = parseFloat(document.getElementById("coor").value);
+      var cn = parseFloat(document.getElementById("cn").value);
+      var advJava = parseFloat(document.getElementById("advJava").value);
+      var ddbms = parseFloat(document.getElementById("ddbms").value);
+      var php = parseFloat(document.getElementById("php").value);
+      var sub1 = parseFloat(document.getElementById("sub1").value);
+      var sub2 = parseFloat(document.getElementById("sub2").value);
+      var sub3 = parseFloat(document.getElementById("sub3").value);
+
+      var creditPoints = [5, 4, 4, 4, 3];
+      var marks = [coor, cn, advJava, ddbms, php];
+      var x = parseFloat(document.getElementById("x").value) || 0;
+      var y = parseFloat(document.getElementById("y").value) || 0;
+      var z = parseFloat(document.getElementById("z").value) || 0;
+
+      var multipliedValues = 0;
+      var totalCredits = 0;
+
+      for (var i = 0; i < marks.length; i++) {
+        multipliedValues += marks[i] * creditPoints[i];
+        totalCredits += creditPoints[i];
+      }
+
+      var additionalCredits = (x + y + z);
+      var gpa = multipliedValues + additionalCredits;
+      gpa = gpa / (totalCredits * 10);
+
+      var part3CGPA = parseFloat(document.getElementById("part3CGPA").value);
+
+      var averageCGPA = (gpa + part3CGPA) / 2;
+      var cgpa = averageCGPA;
+
+      document.getElementById("output").innerHTML = "GPA: " + gpa.toFixed(2) + "<br>CGPA: " + cgpa.toFixed(2);
+    }
+  </script>
+</head>
+<body>
+  <h1>GPA and CGPA Calculator</h1>
+  <form>
+    <label for="coor">Coor:</label>
+    <input type="text" id="coor"><br><br>
+    <label for="cn">CN:</label>
+    <input type="text" id="cn"><br><br>
+    <label for="advJava">Adv Java:</label>
+    <input type="text" id="advJava"><br><br>
+    <label for="ddbms">DDBMS:</label>
+    <input type="text" id="ddbms"><br><br>
+    <label for="php">PHP:</label>
+    <input type="text" id="php"><br><br>
+    <h5>Fill below one if you've had cleared any arrear in sem4</h5>
+    <label for="sub1">Sub1:</label>
+    <input type="text" id="sub1"><br><br>
+    <label for="x">Credit Sub1:</label>
+    <input type="text" id="x"><br><br>
+    <label for="sub2">Sub2:</label>
+    <input type="text" id="sub2"><br><br>
+    <label for="y">Credit Sub2:</label>
+    <input type="text" id="y"><br><br>
+    <label for="sub3">Sub3:</label>
+    <input type="text" id="sub3"><br><br>
+    <label for="z">Credit Sub3:</label>
+    <input type="text" id="z"><br><br>
+    <label for="part3CGPA">Enter 3rd Semester, Part 3 CGPA:</label>
+    <input type="text" id="part3CGPA"><br><br>
+    <button type="button" onclick="calculateGPA()">Calculate</button>
+  </form>
+  <br>
+  <div id="output"></div>
+</body>
+</html>
