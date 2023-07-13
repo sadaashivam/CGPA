@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GPA Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            padding: 5px;
+            width: 150px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #result {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        #cgpaResult {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+            font-size: 24px;
+            color: #4CAF50;
+        }
+    </style>
+    <script>
+        function calculateGPA() {
+            var marks = [
+                parseFloat(document.getElementById("coor").value),
+                parseFloat(document.getElementById("cn").value),
+                parseFloat(document.getElementById("advJava").value),
+                parseFloat(document.getElementById("ddbms").value),
+                parseFloat(document.getElementById("php").value)
+            ];
+
+            var creditPoints = [5, 4, 4, 4, 3];
+            var additionalMarks = [
+                parseFloat(document.getElementById("sub1").value),
+                parseFloat(document.getElementById("sub2").value),
+                parseFloat(document.getElementById("sub3").value)
+            ];
+            var additionalCP = [
+                parseFloat(document.getElementById("cp6").value),
+                parseFloat(document.getElementById("cp7").value),
+                parseFloat(document.getElementById("cp8").value)
+            ];
+
+            var totalMarks = 0;
+            var totalCredits = 0;
+
+            marks.forEach(function (mark, index) {
+                if (!isNaN(mark)) {
+                    totalMarks += mark * creditPoints[index];
+                    totalCredits += creditPoints[index];
+                }
+            });
+
+            additionalMarks.forEach(function (mark, index) {
+                if (!isNaN(mark) && !isNaN(additionalCP[index])) {
+                    totalMarks += mark * additionalCP[index];
+                    totalCredits += additionalCP[index];
+                }
+            });
+
+            var gpa = totalMarks / (totalCredits * 10);
+
+            var cgpaPart3 = parseFloat(document.getElementById("cgpaPart3").value);
+
+            var cgpa = (gpa * 20 + cgpaPart3 * 44) / 64;
+
+            document.getElementById("result").innerHTML = "GPA: " + gpa.toFixed(2);
+            document.getElementById("cgpaResult").innerHTML = "CGPA: " + cgpa.toFixed(2);
+        }
+    </script>
+</head>
+<body>
+    <h1>GPA Calculator</h1>
+    <form>
+        <label for="coor">Coor:</label>
+        <input type="text" id="coor" />
+
+        <label for="cn">CN:</label>
+        <input type="text" id="cn" />
+
+        <label for="advJava">Adv Java:</label>
+        <input type="text" id="advJava" />
+
+        <label for="ddbms">DDBMS:</label>
+        <input type="text" id="ddbms" />
+
+        <label for="php">PHP:</label>
+        <input type="text" id="php" />
+        
+        <h5><center>Enter mark and credits below if you had cleared any Arrear in sem4</center></h5>
+
+        <label for="sub1">Arrear Sub1:</label>
+        <input type="text" id="sub1" />
+
+        <label for="sub2">Arrear Sub2:</label>
+        <input type="text" id="sub2" />
+
+        <label for="sub3">Arrear Sub3:</label>
+        <input type="text" id="sub3" />
+
+        <label for="cp6">Credit Points for Arrear Sub1:</label>
+        <input type="text" id="cp6" />
+
+        <label for="cp7">Credit Points for Arrear Sub2:</label>
+        <input type="text" id="cp7" />
+
+        <label for="cp8">Credit Points for Arrear Sub3:</label>
+        <input type="text" id="cp8" />
+        
+        <h2>Enter 3rd semester part 3 cgpa!</h2>
+
+        <label for="cgpaPart3">3rd Semester Part 3 CGPA:</label>
+        <input type="text" id="cgpaPart3" />
+
+        <button type="button" onclick="calculateGPA()">Calculate</button>
+    </form>
+
+    <p id="result"></p>
+    <p id="cgpaResult"></p>
+</body>
+</html>
